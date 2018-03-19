@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+    <!-- 1.请求入口
+         2.初始化spring容器
+         3.在应用程序启动时，初始化servlet-->
+    <servlet>
+        <servlet-name>springmvc</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:spring.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+        <!--<multipart-config>
+            &lt;!&ndash;<location></location>&lt;!&ndash; 上传文件的存储位置 &ndash;&gt;&ndash;&gt;
+            &lt;!&ndash;<max-file-size></max-file-size> &lt;!&ndash; 每个文件的最大长度 &ndash;&gt;&ndash;&gt;
+            &lt;!&ndash;<file-size-threshold></file-size-threshold> &lt;!&ndash; 允许存在内存中的最大长度 &ndash;&gt;&ndash;&gt;
+            &lt;!&ndash;<max-request-size></max-request-size> &lt;!&ndash; 整个请求的最大长度 &ndash;&gt;&ndash;&gt;
+        </multipart-config>-->
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>springmvc</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <!-- 针对tomcat8中post请求的乱码问题 -->
+    <filter>
+        <filter-name>encoding</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>utf-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>encoding</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!--<error-page>
+        <error-code>404</error-code>
+        <location>/404</location>
+    </error-page>-->
+
+    <!--Servlet 3.0后的特性-->
+    <error-page>
+        <location>/error</location>
+    </error-page>
+</web-app>

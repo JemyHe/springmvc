@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	   http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	   http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+    
+    <context:component-scan base-package="com.test.controller"/>
+
+    <!-- 视图解析器 -->
+    <mvc:view-resolvers>
+        <!-- 默认加入前缀/WEB-INF和后缀.jsp -->
+        <mvc:jsp></mvc:jsp>
+    </mvc:view-resolvers>
+
+    <!-- 启用springmvc注解 -->
+    <mvc:annotation-driven/>
+
+    <!--servlet3.0 multipart解析器-->
+    <!--<bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"/>-->
+
+    <!--commons-upload multipart解析器-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
+
+    <!-- 解决静态资源无法访问的问题 -->
+    <mvc:default-servlet-handler/>
+
+    <!--可以用来映射没有逻辑处理的路径-->
+    <mvc:view-controller path="/" view-name="index"/>
+</beans>
